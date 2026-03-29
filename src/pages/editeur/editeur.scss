@@ -162,6 +162,47 @@ select.form-input {
   }
 }
 
+.phone-group {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid #ddd;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: var(--color-primary);
+  }
+
+  &__indicatif {
+    padding: 0.7rem 0.6rem;
+    border: none;
+    border-right: 1.5px solid #ddd;
+    background: #F0F0F0;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 90px;
+    color: var(--color-text);
+
+    &:focus {
+      background: #E8E8E8;
+    }
+  }
+
+  &__numero {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    background: #FAFAFA;
+
+    &:focus {
+      border-color: transparent;
+    }
+  }
+}
+
 .couleur-info {
   font-size: 0.9rem;
   color: #666;
