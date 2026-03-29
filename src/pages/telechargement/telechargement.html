@@ -1,0 +1,17 @@
+<div class="telechargement-page">
+  <div class="telechargement-card">
+    <span class="telechargement-card__icon">✅</span>
+    <h1>CV généré avec succès !</h1>
+    <p class="telechargement-card__filename">{{ cvService.nomFichier() }}</p>
+    <p class="telechargement-card__info">
+      Votre CV a été téléchargé automatiquement. Vérifiez votre dossier de téléchargements.
+    </p>
+    <div class="telechargement-card__actions">
+      <a routerLink="/editeur" class="btn-primary">✏ Modifier mon CV</a>
+      <a routerLink="/" class="btn-secondary">← Accueil</a>
+    </div>
+    <div class="ats-badge">
+      <span>✅ CV compatible ATS — texte sélectionnable, mise en page simple</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,219 @@
+<div class="container">
+  <div class="editeur-header">
+    <h1>Créer mon CV</h1>
+    <p>Remplissez les sections ci-dessous. Seuls le prénom, le nom, l'email, le téléphone et la ville sont obligatoires.</p>
+  </div>
+
+  @if (erreur()) {
+    <p class="erreur" role="alert">⚠ {{ erreur() }}</p>
+  }
+
+  <!-- Informations personnelles -->
+  <section class="section-card">
+    <h2 class="section-title">👤 Informations personnelles</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prénom <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="prenom" placeholder="Ex : Moussa" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nom <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="nom" placeholder="Ex : OUEDRAOGO" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Titre professionnel</label>
+      <input class="form-input" type="text" [(ngModel)]="titreProfessionnel" placeholder="Ex : Développeur Web Full Stack" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email <span class="required">*</span></label>
+        <input class="form-input" type="email" [(ngModel)]="email" placeholder="exemple@gmail.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone <span class="required">*</span></label>
+        <input class="form-input" type="tel" [(ngModel)]="telephone" placeholder="+226 XX XX XX XX" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Ville <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="ville" placeholder="Ex : Ouagadougou" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">LinkedIn (optionnel)</label>
+        <input class="form-input" type="text" [(ngModel)]="linkedin" placeholder="linkedin.com/in/votre-profil" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Profil / Résumé professionnel</label>
+      <textarea class="form-input form-textarea" [(ngModel)]="profil" rows="4"
+        placeholder="Décrivez votre profil en 2-3 phrases : vos compétences clés, vos années d'expérience et votre objectif professionnel."></textarea>
+    </div>
+  </section>
+
+  <!-- Expériences -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">💼 Expériences professionnelles</h2>
+      <button class="btn-ajouter" type="button" (click)="ajouterExperience()">+ Ajouter</button>
+    </div>
+
+    @for (exp of experiences; track trackByIndex($index)) {
+      <div class="item-card">
+        <div class="item-card__header">
+          <span>Expérience {{ $index + 1 }}</span>
+          @if (experiences.length > 1) {
+            <button class="btn-supprimer" type="button" (click)="supprimerExperience($index)">✕</button>
+          }
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Poste occupé</label>
+            <input class="form-input" type="text" [(ngModel)]="exp.poste" placeholder="Ex : Comptable principal" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Entreprise / Organisation</label>
+            <input class="form-input" type="text" [(ngModel)]="exp.entreprise" placeholder="Ex : Sonabel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Période</label>
+          <input class="form-input" type="text" [(ngModel)]="exp.dates" placeholder="Ex : Jan 2022 — Déc 2024" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description des missions</label>
+          <textarea class="form-input form-textarea" [(ngModel)]="exp.description" rows="3"
+            placeholder="Décrivez vos principales missions et réalisations..."></textarea>
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Formations -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">🎓 Formation</h2>
+      <button class="btn-ajouter" type="button" (click)="ajouterFormation()">+ Ajouter</button>
+    </div>
+
+    @for (form of formations; track trackByIndex($index)) {
+      <div class="item-card">
+        <div class="item-card__header">
+          <span>Formation {{ $index + 1 }}</span>
+          @if (formations.length > 1) {
+            <button class="btn-supprimer" type="button" (click)="supprimerFormation($index)">✕</button>
+          }
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Diplôme / Certification</label>
+            <input class="form-input" type="text" [(ngModel)]="form.diplome" placeholder="Ex : Licence en Informatique" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Établissement</label>
+            <input class="form-input" type="text" [(ngModel)]="form.etablissement" placeholder="Ex : Université de Ouagadougou" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Année(s)</label>
+          <input class="form-input" type="text" [(ngModel)]="form.dates" placeholder="Ex : 2018 — 2021" />
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Compétences -->
+  <section class="section-card">
+    <h2 class="section-title">🛠 Compétences</h2>
+    <div class="form-group">
+      <label class="form-label">Compétences (séparées par des virgules)</label>
+      <textarea class="form-input form-textarea" [(ngModel)]="competencesTexte" rows="3"
+        placeholder="Ex : Microsoft Office, Gestion de projet, Comptabilité, Communication, Leadership"></textarea>
+    </div>
+  </section>
+
+  <!-- Langues -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">🌍 Langues</h2>
+      <button class="btn-ajouter" type="button" (click)="ajouterLangue()">+ Ajouter</button>
+    </div>
+
+    @for (lang of langues; track trackByIndex($index)) {
+      <div class="item-card item-card--inline">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Langue</label>
+            <input class="form-input" type="text" [(ngModel)]="lang.langue" placeholder="Ex : Français" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Niveau</label>
+            <select class="form-input" [(ngModel)]="lang.niveau">
+              <option value="">-- Sélectionner --</option>
+              @for (niveau of niveauxLangue; track niveau) {
+                <option [value]="niveau">{{ niveau }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        @if (langues.length > 1) {
+          <button class="btn-supprimer btn-supprimer--standalone" type="button" (click)="supprimerLangue($index)">✕</button>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Centres d'intérêt -->
+  <section class="section-card">
+    <h2 class="section-title">🎯 Centres d'intérêt (optionnel)</h2>
+    <div class="form-group">
+      <textarea class="form-input form-textarea" [(ngModel)]="interets" rows="2"
+        placeholder="Ex : Lecture, Football, Photographie, Bénévolat..."></textarea>
+    </div>
+  </section>
+
+  <!-- Couleur du CV -->
+  <section class="section-card">
+    <h2 class="section-title">🎨 Couleur du CV</h2>
+    <p class="couleur-info">Choisissez une couleur d'accent pour votre CV. Toutes les couleurs proposées sont compatibles ATS.</p>
+    <div class="palette">
+      @for (couleur of paletteCouleursCV; track couleur.hex) {
+        <button
+          class="palette__swatch"
+          type="button"
+          [style.background-color]="couleur.hex"
+          [class.selected]="couleurSelectionnee === couleur.hex"
+          [title]="couleur.nom"
+          (click)="couleurSelectionnee = couleur.hex"
+          [attr.aria-label]="couleur.nom"
+        >
+          @if (couleurSelectionnee === couleur.hex) { ✓ }
+        </button>
+      }
+    </div>
+    <p class="couleur-nom">Couleur sélectionnée : <strong>{{ nomCouleurSelectionnee }}</strong></p>
+  </section>
+
+  <!-- Bouton générer -->
+  <div class="generer-section">
+    <button
+      class="btn-primary btn-generer"
+      type="button"
+      (click)="generer()"
+      [disabled]="chargement()"
+    >
+      @if (chargement()) {
+        ⏳ Génération en cours...
+      } @else {
+        📄 Générer mon CV en PDF
+      }
+    </button>
+    <p class="generer-info">Votre CV sera téléchargé automatiquement en PDF.</p>
+  </div>
+</div>
